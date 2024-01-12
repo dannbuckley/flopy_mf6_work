@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flopy_mf6_work"
+dynamic = ["version"]
+dependencies = [
+    "flopy",
+    "matplotlib",
+    "numpy",
+    "pandas >= 2",
+    "seaborn"
+]
+authors = [{ name = "Daniel N. Buckley", email = "buckley.daniel.n@gmail.com" }]
+description = "Learning MODFLOW 6 using the FloPy library"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/dannbuckley/flopy_mf6_work"
+
+[project.optional-dependencies]
+testing = [
+    "mypy",
+    "pylint",
+    "pytest"
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "flopy_mf6_work.__version__" }
