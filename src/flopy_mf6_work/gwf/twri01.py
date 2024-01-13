@@ -89,9 +89,9 @@ class TWRI:
         -------
         fig : matplotlib.figure.Figure
         """
-        fig, ax = plt.subplots()
-        ax.set_title("Map View of Unconfined Aquifer Layer", fontweight="bold")
-        mapview = fp.plot.PlotMapView(model=self._model, ax=ax)
+        fig, axes = plt.subplots()
+        axes.set_title("Map View of Unconfined Aquifer Layer", fontweight="bold")
+        mapview = fp.plot.PlotMapView(model=self._model, ax=axes)
         mapview.plot_ibound()
         mapview.plot_grid()
 
@@ -113,9 +113,9 @@ class TWRI:
         -------
         fig : matplotlib.figure.Figure
         """
-        fig, ax = plt.subplots()
-        ax.set_title("Map View of Middle Confined Aquifer Layer", fontweight="bold")
-        mapview = fp.plot.PlotMapView(model=self._model, ax=ax, layer=2)
+        fig, axes = plt.subplots()
+        axes.set_title("Map View of Middle Confined Aquifer Layer", fontweight="bold")
+        mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=2)
         mapview.plot_ibound()
         mapview.plot_grid()
 
@@ -135,9 +135,9 @@ class TWRI:
         -------
         fig : matplotlib.figure.Figure
         """
-        fig, ax = plt.subplots()
-        ax.set_title("Map View of Lower Confined Aquifer Layer", fontweight="bold")
-        mapview = fp.plot.PlotMapView(model=self._model, ax=ax, layer=4)
+        fig, axes = plt.subplots()
+        axes.set_title("Map View of Lower Confined Aquifer Layer", fontweight="bold")
+        mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=4)
         mapview.plot_ibound()
         mapview.plot_grid()
 
@@ -148,7 +148,11 @@ class TWRI:
         return fig
 
     def _add_sim_tdis(self):
-        """Add Temporal Discretization (TDIS) packge to simulation."""
+        """Add Temporal Discretization (TDIS) packge to simulation.
+
+        A single steady-stress period with a total length of 86,400 seconds
+        (1 day) is simulated.
+        """
         try:
             fp.mf6.ModflowTdis(
                 simulation=getattr(self, "_simulation"),
@@ -180,7 +184,15 @@ class TWRI:
             pass
 
     def _add_model_dis(self):
-        """Add Structured Discretization (DIS) to model."""
+        """Add Structured Discretization (DIS) to model.
+
+        There are three simulated aquifers, which are separated from each other by confining layers.
+        The confining beds are 50 ft thick and are explicitly simulated as
+        model layers 2 and 4, respectively.
+        Each layer is a square 75,000 ft on a side and is divided into a
+        grid with 15 rows and 15 columns,
+        which forms squares 5,000 ft on a side.
+        """
         try:
             fp.mf6.ModflowGwfdis(
                 model=getattr(self, "_model"),
@@ -190,8 +202,20 @@ class TWRI:
                 ncol=15,
                 delr=5000.0,
                 delc=5000.0,
+                # top of unconfined aquifer
                 top=200.0,
-                botm=[-150.0, -200.0, -300.0, -350.0, -450.0],
+                botm=[
+                    # bottom of unconfined aquifer
+                    -150.0,
+                    # bottom of first confining unit
+                    -200.0,
+                    # bottom of middle confined aquifer
+                    -300.0,
+                    # bottom of second confining unit
+                    -350.0,
+                    # bottom of lower confined aquifer
+                    -450.0,
+                ],
                 filename=f"{self.sim_name}.dis",
                 pname="dis",
             )
@@ -200,15 +224,50 @@ class TWRI:
             pass
 
     def _add_model_npf(self):
-        """Add Node Property Flow (NPF) package to model."""
+        """Add Node Property Flow (NPF) package to model.
+
+        The transmissivity of the middle and lower aquifers was converted to
+        a horizontal hydraulic conductivity using the layer thickness. The
+        vertical hydraulic conductivity in the aquifers was set equal to the
+        horizontal hydraulic conductivity. The vertical hydraulic conductivity
+        of the confining units was calculated from the vertical conductance
+        of the confining beds defined in the original problem and the
+        confining unit thickness; the horizontal hydraulic conductivity of
+        the confining bed was set to the vertical hydraulic conductivity
+        and results in vertical flow in the confining unit.
+        """
         try:
-            k = [0.001, 1e-8, 0.0001, 5e-7, 0.0002]
+            k = [
+                # unconfined aquifer
+                0.001,
+                # first confining unit
+                1e-8,
+                # middle confined aquifer
+                0.0001,
+                # second confining unit
+                5e-7,
+                # lower confined aquifer
+                0.0002,
+            ]
             fp.mf6.ModflowGwfnpf(
                 model=getattr(self, "_model"),
                 cvoptions=[(True, "DEWATERED")],
+                # when a cell is overlying a dewatered convertible cell, the head difference
+                # used in Darcy's Law is equal to the head in the overlying cell minus
+                # the bottom elevation of the overlying cell
                 perched=True,
                 save_specific_discharge=True,
-                icelltype=[1, 0, 0, 0, 0],
+                icelltype=[
+                    # first layer: saturated thickness varies with computed head when
+                    # head is below the cell top
+                    # (i.e., first layer is unconfined)
+                    1,
+                    # remaining layers: saturated thickness is held constant
+                    0,
+                    0,
+                    0,
+                    0,
+                ],
                 k=k,
                 k33=k,
                 filename=f"{self.sim_name}.npf",
@@ -219,10 +278,16 @@ class TWRI:
             pass
 
     def _add_model_ic(self):
-        """Add Initial Conditions (IC) package to model."""
+        """Add Initial Conditions (IC) package to model.
+
+        An initial head of zero ft was specified in all model layers.
+        Any initial head exceeding the bottom of model layer 1 (-150 ft)
+        could be specified since the model is steady-state.
+        """
         try:
             fp.mf6.ModflowGwfic(
                 model=getattr(self, "_model"),
+                # initial (starting) head
                 strt=0.0,
                 filename=f"{self.sim_name}.ic",
                 pname="ic",
@@ -232,7 +297,11 @@ class TWRI:
             pass
 
     def _add_model_chd(self):
-        """Add Constant-Head (CHD) package to model."""
+        """Add Constant-Head (CHD) package to model.
+
+        Flow out of the model is partly from a lake represented by
+        constant head (CHD) package cells in the unconfined and middle aquifers.
+        """
 
         def _make_chd_iter() -> Iterator[tuple[tuple[int, int, int], float]]:
             """Generate constant-head data for model.
@@ -243,13 +312,21 @@ class TWRI:
             ((layer, row, column), head)
             """
             for layer in [0, 2]:
+                # layer = 0: unconfined aquifer
+                # layer = 2: middle confined aquifer
                 for row in range(15):
+                    # apply constant-head to entire first column
                     yield ((layer, row, 0), 0.0)
 
         try:
             fp.mf6.ModflowGwfchd(
                 model=getattr(self, "_model"),
+                # maximum number of constant-head cells that will be specified
+                # for use during any stress period
                 maxbound=30,
+                # list of (cellid, head)
+                # cellid: (layer, row, column)
+                # head: 0
                 stress_period_data=list(_make_chd_iter()),
                 filename=f"{self.sim_name}.chd",
                 pname="chd_0",
@@ -259,7 +336,11 @@ class TWRI:
             pass
 
     def _add_model_drn(self):
-        """Add Drain (DRN) package to model."""
+        """Add Drain (DRN) package to model.
+
+        Flow out of the model is partly from buried drain tubes represented by
+        drain (DRN) pacakge cells in model layer 1.
+        """
 
         def _make_drn_iter() -> Iterator[tuple[tuple[int, int, int], float, float]]:
             """Generate drain data for model.
@@ -275,7 +356,14 @@ class TWRI:
         try:
             fp.mf6.ModflowGwfdrn(
                 model=getattr(self, "_model"),
+                # maximum number of drain cells that will be specified
+                # for use during any stress period
                 maxbound=9,
+                # list of (cellid, elev, cond)
+                # cellid: (layer, row, column)
+                # elev: elevation of the drain
+                # cond: hydraulic conductance of the interface between the aquifer
+                #   and the drain
                 stress_period_data=list(_make_drn_iter()),
                 filename=f"{self.sim_name}.drn",
                 pname="drn_0",
@@ -285,7 +373,11 @@ class TWRI:
             pass
 
     def _add_model_wel(self):
-        """Add Well (WEL) package to model."""
+        """Add Well (WEL) package to model.
+
+        Flow out of the model is partly from discharging wells represented by
+        well (WEL) package cells in all three aquifers.
+        """
 
         def _make_wel_iter() -> Iterator[tuple[tuple[int, int, int], float]]:
             """Generate well data for model.
@@ -297,6 +389,7 @@ class TWRI:
             # wells in unconfined aquifer
             for row in range(8, 13, 2):
                 for col in range(7, 14, 2):
+                    # negative well rate indicates discharge (extraction)
                     yield ((0, row, col), -5.0)
 
             # wells in middle confined aquifer
@@ -309,7 +402,12 @@ class TWRI:
         try:
             fp.mf6.ModflowGwfwel(
                 model=getattr(self, "_model"),
+                # maximum number of well cells that will be specified
+                # for use during any stress period
                 maxbound=15,
+                # list of (cellid, q)
+                # cellid: (layer, row, column)
+                # q: volumetric well rate
                 stress_period_data=list(_make_wel_iter()),
                 filename=f"{self.sim_name}.wel",
                 pname="wel_0",
@@ -319,10 +417,16 @@ class TWRI:
             pass
 
     def _add_model_rcha(self):
-        """Add Recharge (RCH) package to model (array-based version)."""
+        """Add Recharge (RCH) package to model (array-based version).
+
+        Flow into the system is from infiltration from precipitation and was
+        represented using the recharge (RCH) package. A constant recharge rate
+        was specified for every cell in model layer 1.
+        """
         try:
             fp.mf6.ModflowGwfrcha(
                 model=getattr(self, "_model"),
+                # recharge flux rate (L / T)
                 recharge=3e-8,
                 filename=f"{self.sim_name}.rcha",
                 pname="rcha_0",
@@ -336,10 +440,14 @@ class TWRI:
         try:
             fp.mf6.ModflowGwfoc(
                 model=getattr(self, "_model"),
+                # output file for budget info
                 budget_filerecord=[f"{self.sim_name}.cbc"],
+                # output file for head info
                 head_filerecord=[f"{self.sim_name}.hds"],
+                # list of (rtype, ocsetting)
+                # rtype: type of info
+                # ocsetting: which steps
                 saverecord=[("head", "all"), ("budget", "all")],
-                # printrecord=None,
                 filename=f"{self.sim_name}.oc",
                 pname="oc",
             )

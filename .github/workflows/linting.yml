@@ -1,0 +1,31 @@
+name: linting
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  linting:
+    name: py${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Upgrade pip, setuptools, wheel
+        run: python3 -m pip install -U pip setuptools wheel
+      - name: Install flopy_mf6_work with runtime dependencies
+        run: python3 -m pip install .
+      - name: Install flopy_mf6_work with development dependencies
+        run: python3 -m pip install .[testing]
+      - name: Lint Python files
+        run: python3 -m pylint src/flopy_mf6_work/*
