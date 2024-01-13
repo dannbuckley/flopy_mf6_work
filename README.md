@@ -25,6 +25,13 @@ Going through the examples in the [MODFLOW 6 software download](https://www.usgs
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/twri01.py">Implementation</a></td>
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_twri01/gwf_twri01.ipynb">Testing</a></td>
     </tr>
+    <tr>
+      <td>ex-gwf-bcf2ss-p[01, 02]a</td>
+      <td>BCF2SS</td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/learning/gwf_bcf2ss.ipynb">Learning</a></td>
+      <td><a href="">Implementation</a></td>
+      <td><a href="">Testing</a></td>
+    </tr>
   </tbody>
 </table>
 
