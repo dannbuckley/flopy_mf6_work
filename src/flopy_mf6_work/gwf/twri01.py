@@ -1,4 +1,5 @@
 """twri01 module"""
+# pylint: disable=R0801
 from os import PathLike
 from typing import Iterator, Union
 
@@ -37,7 +38,7 @@ class TWRI:
         self._add_sim_tdis()
         self._add_sim_ims()
 
-        # setup model
+        # setup groundwater flow model
         self._model = fp.mf6.ModflowGwf(
             simulation=self._simulation,
             modelname=self.sim_name,
