@@ -36,8 +36,8 @@ Going through the examples in the [MODFLOW 6 software download](https://www.usgs
       <td>ex-gwf-advtidal</td>
       <td>Tidal</td>
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/learning/gwf_advtidal.ipynb">Learning</a></td>
-      <td>Implementation</td>
-      <td>Testing</td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/advtidal/__init__.py">Implementation</a></td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_advtidal/gwf_advtidal.ipynb">Testing</a></td>
     </tr>
   </tbody>
 </table>
