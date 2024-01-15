@@ -1,9 +1,11 @@
 """bcf2ss module"""
 # pylint: disable=R0801
 from os import PathLike
+from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -94,7 +96,7 @@ class BCF2SS:
         success, _ = self._simulation.run_simulation()
         assert success, "MODFLOW did not terminate normally!"
 
-    def plot_mapview_lower_kper0(self):
+    def plot_mapview_lower_kper0(self) -> Figure:
         """Generate a map-view plot of the lower aquifer during the first stress period
         with the river boundary condition.
 
@@ -116,7 +118,7 @@ class BCF2SS:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_lower_kper1(self):
+    def plot_mapview_lower_kper1(self) -> Figure:
         """Generate a map-view plot of the lower aquifer during the second stress period
         with well and river boundary conditions.
 
@@ -139,6 +141,65 @@ class BCF2SS:
 
         # return completed figure to caller
         return fig
+
+    def plot_head_comparison_kper(self) -> Figure | None:
+        """Generate map-view plots of both aquifers and compare heads
+        during both stress periods.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            times = hds.get_times()
+
+            fig, axes = plt.subplots(
+                nrows=len(times), ncols=2, sharex=True, sharey=True, figsize=(12, 9)
+            )
+            fig.tight_layout()
+            aquifer_nm = ["Upper", "Lower"]
+            for tim_ix, tim in enumerate(times):
+                for layer in [0, 1]:
+                    mapview = fp.plot.PlotMapView(
+                        model=self._model, ax=axes[tim_ix, layer], layer=layer
+                    )
+                    axes[tim_ix, layer].set_title(
+                        f"{aquifer_nm[layer]} Aquifer, t={tim:.1f} d", fontweight="bold"
+                    )
+                    mapview.plot_ibound()
+                    mapview.plot_grid()
+
+                    # filled head contour
+                    hds_fill = mapview.plot_array(
+                        hds.get_data(totim=tim),
+                        cmap="rainbow_r",
+                        alpha=0.4,
+                        vmin=0,
+                        vmax=140,
+                    )
+                    plt.colorbar(hds_fill)
+
+                    # head contour lines
+                    hds_line = mapview.contour_array(
+                        hds.get_data(totim=tim),
+                        colors="black",
+                    )
+                    plt.clabel(hds_line, fmt="%.0f" if tim_ix == 0 else "%1.1f")
+
+                    if layer == 1:
+                        # plot wells in second stress period
+                        mapview.plot_bc("WEL", kper=tim_ix)
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
 
     def _add_sim_tdis(self):
         """Add Temporal Discretization (TDIS) package to simulation.
