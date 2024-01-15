@@ -1,9 +1,11 @@
 """twri01 module"""
 # pylint: disable=R0801
 from os import PathLike
+from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 
@@ -82,7 +84,7 @@ class TWRI:
         success, _ = self._simulation.run_simulation()
         assert success, "MODFLOW did not terminate normally!"
 
-    def plot_mapview_unconfined(self):
+    def plot_mapview_unconfined(self) -> Figure:
         """Generate a map-view plot of the unconfined aquifer in the first layer
         with constant-head, drain, and well boundary conditions.
 
@@ -106,7 +108,48 @@ class TWRI:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_middle_confined(self):
+    def plot_heads_unconfined(self) -> Figure | None:
+        """Generate a map-view plot of the unconfined aquifer in the first layer
+        with heads.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            head_data = hds.get_data()
+
+            fig, axes = plt.subplots()
+            axes.set_title("Unconfined Aquifer w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=0)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(head_data, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(head_data, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # plot drain tubes
+            mapview.plot_bc("DRN")
+            # plot wells
+            mapview.plot_bc("WEL")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
+
+    def plot_mapview_middle_confined(self) -> Figure:
         """Generate a map-view plot of the middle confined aquifer in the third layer
         with constant-head and well boundary conditions.
 
@@ -128,7 +171,46 @@ class TWRI:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_lower_confined(self):
+    def plot_heads_middle_confined(self) -> Figure | None:
+        """Generate a map-view plot of the middle confined aquifer in the third layer
+        with heads.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            head_data = hds.get_data()
+
+            fig, axes = plt.subplots()
+            axes.set_title("Middle Confined Aquifer w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=2)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(head_data, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(head_data, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # plot wells
+            mapview.plot_bc("WEL")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
+
+    def plot_mapview_lower_confined(self) -> Figure:
         """Generate a map-view plot of the lower confined aquifer in the fifth layer
         with well boundary conditions.
 
@@ -147,6 +229,45 @@ class TWRI:
 
         # return completed figure to caller
         return fig
+
+    def plot_heads_lower_confined(self) -> Figure | None:
+        """Generate a map-view plot of the lower confined aquifer in the fifth layer
+        with heads.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            head_data = hds.get_data()
+
+            fig, axes = plt.subplots()
+            axes.set_title("Lower Confined Aquifer w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=4)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(head_data, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(head_data, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # plot well
+            mapview.plot_bc("WEL")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
 
     def _add_sim_tdis(self):
         """Add Temporal Discretization (TDIS) packge to simulation.
