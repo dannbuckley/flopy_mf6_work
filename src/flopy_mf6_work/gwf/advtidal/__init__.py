@@ -2,9 +2,11 @@
 # pylint: disable=R0801
 from importlib.resources import files, as_file
 from os import PathLike
+from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
+from matplotlib.figure import Figure
 from matplotlib.patches import Patch
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -87,7 +89,7 @@ class Tidal:
         success, _ = self._simulation.run_simulation()
         assert success, "MODFLOW did not terminate normally!"
 
-    def plot_recharge_zones(self):
+    def plot_recharge_zones(self) -> Figure:
         """Generate a map-view plot of the 3 recharge zones.
 
         Returns
@@ -124,7 +126,7 @@ class Tidal:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_unconfined_aq(self):
+    def plot_mapview_unconfined_aq(self) -> Figure:
         """Generate a map-view plot of the unconfined aquifer with
         well and river boundary conditions.
 
@@ -146,7 +148,47 @@ class Tidal:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_confining_unit(self):
+    def plot_heads_unconfined_aq(self) -> Figure | None:
+        """Generate a map-view plot of the unconfined aquifer with
+        heads for the steady-state stress period.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            times = hds.get_times()
+            hds_steady = hds.get_data(totim=times[0])
+
+            fig, axes = plt.subplots(figsize=(5, 6))
+            axes.set_title("Unconfined Aquifer w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=0)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(hds_steady, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(hds_steady, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # plot stream
+            mapview.plot_bc("RIV")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
+
+    def plot_mapview_confining_unit(self) -> Figure:
         """Generate a map-view plot of the confining unit with
         the general-head boundary condition.
 
@@ -166,7 +208,44 @@ class Tidal:
         # return completed figure to caller
         return fig
 
-    def plot_mapview_confined_aq(self):
+    def plot_heads_confining_unit(self) -> Figure | None:
+        """Generate a map-view plot of the confining unit with
+        heads for the steady-state stress period.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            times = hds.get_times()
+            hds_steady = hds.get_data(totim=times[0])
+
+            fig, axes = plt.subplots(figsize=(5, 6))
+            axes.set_title("Confining Unit w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=1)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(hds_steady, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(hds_steady, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
+
+    def plot_mapview_confined_aq(self) -> Figure:
         """Generate a map-view plot of the confined aquifer with
         the well and general-head boundary conditions.
 
@@ -187,6 +266,43 @@ class Tidal:
 
         # return completed figure to caller
         return fig
+
+    def plot_heads_confined_aq(self) -> Figure | None:
+        """Generate a map-view plot of the confined aquifer with
+        heads for the steady-state stress period.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            If the heads output file exists.
+        """
+        try:
+            # load head file
+            hds = fp.utils.binaryfile.HeadFile(
+                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+            )
+            times = hds.get_times()
+            hds_steady = hds.get_data(totim=times[0])
+
+            fig, axes = plt.subplots(figsize=(5, 6))
+            axes.set_title("Confined Aquifer w/ Heads", fontweight="bold")
+            mapview = fp.plot.PlotMapView(model=self._model, ax=axes, layer=2)
+            mapview.plot_ibound()
+            mapview.plot_grid()
+
+            # filled head contour
+            hds_fill = mapview.plot_array(hds_steady, cmap="rainbow_r", alpha=0.4)
+            plt.colorbar(hds_fill)
+
+            # head contour lines
+            hds_line = mapview.contour_array(hds_steady, colors="black")
+            plt.clabel(hds_line, fmt="%.0f")
+
+            # return completed figure to caller
+            return fig
+        except FileNotFoundError:
+            # heads file doesn't exist
+            return None
 
     def _add_sim_tdis(self):
         """Add Temporal Discretization (TDIS) package to simulation."""
@@ -328,9 +444,9 @@ class Tidal:
                 # specific yield
                 sy=0.2,
                 # indicates stress period IPER is steady-state
-                steady_state=True,
+                steady_state={0: True},
                 # indicates stress period IPER is transient
-                transient=True,
+                transient={1: True},
                 filename=f"{self.sim_name}.sto",
                 pname="sto",
             )
@@ -426,9 +542,6 @@ class Tidal:
                     ],
                     # third stress period
                     2: [
-                        ((0, 2, 4), -20.0, None),
-                        ((0, 11, 2), -10.0, None),
-                        ((0, 13, 5), -40.0, None),
                         ((2, 3, 2), "well_2_rate", "well_2"),
                         ((2, 4, 7), "well_1_rate", "well_1"),
                     ],
