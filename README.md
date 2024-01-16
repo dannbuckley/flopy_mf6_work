@@ -39,6 +39,13 @@ Going through the examples in the [MODFLOW 6 software download](https://www.usgs
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/advtidal/__init__.py">Implementation</a></td>
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_advtidal/gwf_advtidal.ipynb">Testing</a></td>
     </tr>
+    <tr>
+      <td>ex-gwf-fhb</td>
+      <td>Flow and Head Boundary (FHB) Package Replication</td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/learning/gwf_fhb.ipynb">Learning</a></td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/fhb/__init__.py">Implementation</a></td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_fhb/gwf_fhb.ipynb">Testing</a></td>
+    </tr>
   </tbody>
 </table>
 
