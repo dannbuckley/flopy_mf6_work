@@ -1,8 +1,7 @@
 """advtidal module"""
 # pylint: disable=R0801
-from importlib.resources import files, as_file
+from importlib.resources import files
 from os import PathLike
-from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
@@ -160,10 +159,19 @@ class Tidal:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             times = hds.get_times()
             hds_steady = hds.get_data(totim=times[0])
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(totim=times[0], text="DATA-SPDIS")[0],
+                model=self._model,
+            )
 
             fig, axes = plt.subplots(figsize=(5, 6))
             axes.set_title("Unconfined Aquifer w/ Heads", fontweight="bold")
@@ -179,13 +187,16 @@ class Tidal:
             hds_line = mapview.contour_array(hds_steady, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # plot stream
             mapview.plot_bc("RIV")
 
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def plot_mapview_confining_unit(self) -> Figure:
@@ -220,10 +231,19 @@ class Tidal:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             times = hds.get_times()
             hds_steady = hds.get_data(totim=times[0])
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(totim=times[0], text="DATA-SPDIS")[0],
+                model=self._model,
+            )
 
             fig, axes = plt.subplots(figsize=(5, 6))
             axes.set_title("Confining Unit w/ Heads", fontweight="bold")
@@ -239,10 +259,13 @@ class Tidal:
             hds_line = mapview.contour_array(hds_steady, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def plot_mapview_confined_aq(self) -> Figure:
@@ -279,10 +302,19 @@ class Tidal:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             times = hds.get_times()
             hds_steady = hds.get_data(totim=times[0])
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(totim=times[0], text="DATA-SPDIS")[0],
+                model=self._model,
+            )
 
             fig, axes = plt.subplots(figsize=(5, 6))
             axes.set_title("Confined Aquifer w/ Heads", fontweight="bold")
@@ -298,10 +330,13 @@ class Tidal:
             hds_line = mapview.contour_array(hds_steady, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def _add_sim_tdis(self):
@@ -443,9 +478,9 @@ class Tidal:
                 ss=1e-6,
                 # specific yield
                 sy=0.2,
-                # indicates stress period IPER is steady-state
+                # indicates first stress period is steady-state
                 steady_state={0: True},
-                # indicates stress period IPER is transient
+                # indicates second stress period (and later) is transient
                 transient={1: True},
                 filename=f"{self.sim_name}.sto",
                 pname="sto",
@@ -477,10 +512,6 @@ class Tidal:
                     )
 
         try:
-            # load timeseries data
-            with as_file(files(data).joinpath("data_ghb_ts.csv")) as csv:
-                ghb_ts_df = pd.read_csv(csv)
-
             stress_period_data = list(_make_ghb_stress_data())
             ghb = fp.mf6.ModflowGwfghb(
                 model=getattr(self, "_model"),
@@ -508,6 +539,8 @@ class Tidal:
                 pname="ghb",
             )
 
+            # load timeseries data
+            ghb_ts_df = pd.read_csv(files(data) / "data_ghb_ts.csv")
             # add timeseries data to GHB package
             fp.mf6.ModflowUtlts(
                 parent_package=ghb,
@@ -524,10 +557,6 @@ class Tidal:
     def _add_model_wel(self):
         """Add Well (WEL) package to model."""
         try:
-            # load timeseries data
-            with as_file(files(data).joinpath("data_wel_ts.csv")) as csv:
-                wel_ts_df = pd.read_csv(csv)
-
             wel = fp.mf6.ModflowGwfwel(
                 model=getattr(self, "_model"),
                 boundnames=True,
@@ -558,6 +587,8 @@ class Tidal:
                 pname="wel",
             )
 
+            # load timeseries data
+            wel_ts_df = pd.read_csv(files(data) / "data_wel_ts.csv")
             # add timeseries data to WEL package
             fp.mf6.ModflowUtlts(
                 parent_package=wel,
@@ -574,10 +605,6 @@ class Tidal:
     def _add_model_riv(self):
         """Add River (RIV) package to model."""
         try:
-            # load timeseries data
-            with as_file(files(data).joinpath("data_riv_ts.csv")) as csv:
-                riv_ts_df = pd.read_csv(csv)
-
             riv = fp.mf6.ModflowGwfriv(
                 model=getattr(self, "_model"),
                 boundnames=True,
@@ -609,6 +636,8 @@ class Tidal:
                 pname="riv",
             )
 
+            # load timeseries data
+            riv_ts_df = pd.read_csv(files(data) / "data_riv_ts.csv")
             # add timeseries data to RIV package
             fp.mf6.ModflowUtlts(
                 parent_package=riv,
@@ -680,8 +709,7 @@ class Tidal:
 
         try:
             # load timeseries data
-            with as_file(files(data).joinpath("data_rch_ts.csv")) as csv:
-                rch_ts_df = pd.read_csv(csv)
+            rch_ts_df = pd.read_csv(files(data) / "data_rch_ts.csv")
 
             # generate three different recharge zones
             for zone in [1, 2, 3]:

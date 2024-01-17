@@ -1,7 +1,6 @@
 """twri01 module"""
 # pylint: disable=R0801
 from os import PathLike
-from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
@@ -45,6 +44,8 @@ class TWRI:
             simulation=self._simulation,
             modelname=self.sim_name,
             model_nam_file=f"{self.sim_name}.nam",
+            # write flows to cell budget file
+            save_flows=True,
         )
         self._add_model_dis()
         self._add_model_npf()
@@ -120,9 +121,19 @@ class TWRI:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             head_data = hds.get_data()
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            # get specific discharge data from cell budget
+            # see info for DATA-SPDIS in mf6io.pdf, pg. 289
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(text="DATA-SPDIS")[0], model=self._model
+            )
 
             fig, axes = plt.subplots()
             axes.set_title("Unconfined Aquifer w/ Heads", fontweight="bold")
@@ -138,6 +149,9 @@ class TWRI:
             hds_line = mapview.contour_array(head_data, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # plot drain tubes
             mapview.plot_bc("DRN")
             # plot wells
@@ -146,7 +160,7 @@ class TWRI:
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def plot_mapview_middle_confined(self) -> Figure:
@@ -183,9 +197,17 @@ class TWRI:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             head_data = hds.get_data()
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(text="DATA-SPDIS")[0], model=self._model
+            )
 
             fig, axes = plt.subplots()
             axes.set_title("Middle Confined Aquifer w/ Heads", fontweight="bold")
@@ -201,13 +223,16 @@ class TWRI:
             hds_line = mapview.contour_array(head_data, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # plot wells
             mapview.plot_bc("WEL")
 
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def plot_mapview_lower_confined(self) -> Figure:
@@ -242,9 +267,17 @@ class TWRI:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             head_data = hds.get_data()
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
+            q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                vectors=cbc.get_data(text="DATA-SPDIS")[0], model=self._model
+            )
 
             fig, axes = plt.subplots()
             axes.set_title("Lower Confined Aquifer w/ Heads", fontweight="bold")
@@ -260,13 +293,16 @@ class TWRI:
             hds_line = mapview.contour_array(head_data, colors="black")
             plt.clabel(hds_line, fmt="%.0f")
 
+            # specific discharge
+            mapview.plot_vector(vx=q_x, vy=q_y, normalize=True, color="tab:gray")
+
             # plot well
             mapview.plot_bc("WEL")
 
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def _add_sim_tdis(self):

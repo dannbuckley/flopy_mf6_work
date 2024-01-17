@@ -1,8 +1,7 @@
 """fhb module"""
 # pylint: disable=R0801
-from importlib.resources import files, as_file
+from importlib.resources import files
 from os import PathLike
-from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
@@ -94,7 +93,7 @@ class FHB:
         try:
             # load head data
             head_obs_df = pd.read_csv(
-                Path(self._simulation.sim_path, f"{self.sim_name}.obs.head.csv")
+                self._simulation.sim_path / f"{self.sim_name}.obs.head.csv"
             )
             fig, axes = plt.subplots()
             axes.plot("time", "H1_2_1", "o-", data=head_obs_df, label="H1_2_1")
@@ -122,7 +121,7 @@ class FHB:
         try:
             # load flow data
             flow_obs_df = pd.read_csv(
-                Path(self._simulation.sim_path, f"{self.sim_name}.obs.flow.csv")
+                self._simulation.sim_path / f"{self.sim_name}.obs.flow.csv"
             )
             fig, axes = plt.subplots()
             axes.plot("time", "ICF1", "o-", data=flow_obs_df, label="ICF1")
@@ -256,10 +255,6 @@ class FHB:
                 yield ((0, row, 9), "chdhead")
 
         try:
-            # load timeseries data
-            with as_file(files(data).joinpath("data_chd_ts.csv")) as csv:
-                chd_ts_df = pd.read_csv(csv)
-
             chd = fp.mf6.ModflowGwfchd(
                 model=getattr(self, "_model"),
                 maxbound=3,
@@ -268,6 +263,8 @@ class FHB:
                 pname="chd",
             )
 
+            # load timeseries data
+            chd_ts_df = pd.read_csv(files(data) / "data_chd_ts.csv")
             # add timeseries data to CHD package
             fp.mf6.ModflowUtlts(
                 parent_package=chd,
@@ -284,10 +281,6 @@ class FHB:
     def _add_model_wel(self):
         """Add Well (WEL) package to model."""
         try:
-            # load timeseries data
-            with as_file(files(data).joinpath("data_wel_ts.csv")) as csv:
-                wel_ts_df = pd.read_csv(csv)
-
             wel = fp.mf6.ModflowGwfwel(
                 model=getattr(self, "_model"),
                 maxbound=1,
@@ -296,6 +289,8 @@ class FHB:
                 pname="wel",
             )
 
+            # load timeseries data
+            wel_ts_df = pd.read_csv(files(data) / "data_wel_ts.csv")
             # add timeseries data to WEL package
             fp.mf6.ModflowUtlts(
                 parent_package=wel,

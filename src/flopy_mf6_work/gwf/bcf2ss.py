@@ -1,7 +1,6 @@
 """bcf2ss module"""
 # pylint: disable=R0801
 from os import PathLike
-from pathlib import Path
 from typing import Iterator, Union
 
 import flopy as fp
@@ -154,9 +153,14 @@ class BCF2SS:
         try:
             # load head file
             hds = fp.utils.binaryfile.HeadFile(
-                Path(self._simulation.sim_path, f"{self.sim_name}.hds")
+                self._simulation.sim_path / f"{self.sim_name}.hds"
             )
             times = hds.get_times()
+
+            # load budget file
+            cbc = fp.utils.binaryfile.CellBudgetFile(
+                self._simulation.sim_path / f"{self.sim_name}.cbc"
+            )
 
             fig, axes = plt.subplots(
                 nrows=len(times), ncols=2, sharex=True, sharey=True, figsize=(12, 9)
@@ -164,6 +168,11 @@ class BCF2SS:
             fig.tight_layout()
             aquifer_nm = ["Upper", "Lower"]
             for tim_ix, tim in enumerate(times):
+                # get specific discharge from cell budget data
+                q_x, q_y, _ = fp.utils.postprocessing.get_specific_discharge(
+                    vectors=cbc.get_data(totim=tim, text="DATA-SPDIS")[0],
+                    model=self._model,
+                )
                 for layer in [0, 1]:
                     mapview = fp.plot.PlotMapView(
                         model=self._model, ax=axes[tim_ix, layer], layer=layer
@@ -191,6 +200,11 @@ class BCF2SS:
                     )
                     plt.clabel(hds_line, fmt="%.0f" if tim_ix == 0 else "%1.1f")
 
+                    # specific discharge
+                    mapview.plot_vector(
+                        vx=q_x, vy=q_y, normalize=True, color="tab:gray"
+                    )
+
                     if layer == 1:
                         # plot wells in second stress period
                         mapview.plot_bc("WEL", kper=tim_ix)
@@ -198,7 +212,7 @@ class BCF2SS:
             # return completed figure to caller
             return fig
         except FileNotFoundError:
-            # heads file doesn't exist
+            # output files don't exist
             return None
 
     def _add_sim_tdis(self):
