@@ -1,0 +1,2354 @@
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                          GROUNDWATER FLOW MODEL (GWF)
+                        VERSION 6.4.1 Release 12/09/2022
+
+   MODFLOW 6 compiled Dec 09 2022 18:18:37 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological 
+Survey (USGS). Although the software has been subjected to rigorous 
+review, the USGS reserves the right to update the software as needed 
+pursuant to further analysis and review. No warranty, expressed or 
+implied, is made by the USGS or the U.S. Government as to the 
+functionality of the software and related material nor shall the 
+fact of release constitute any such warranty. Furthermore, the 
+software is released on condition that neither the USGS nor the U.S. 
+Government shall be held liable for any damages resulting from its 
+authorized or unauthorized use. Also refer to the USGS Water 
+Resources Software User Rights Notice for complete use, copyright, 
+and distribution information.
+
+
+As a work of the United States Government, this USGS product is 
+in the public domain within the United States. You can copy, 
+modify, distribute, and perform the work, even for commercial 
+purposes, all without asking permission. Additionally, USGS 
+waives copyright and related rights in the work worldwide 
+through CC0 1.0 Universal Public Domain Dedication 
+(https://creativecommons.org/publicdomain/zero/1.0/).
+
+The following GNU Lesser General Public License (LGPL) libraries
+are used in this USGS product:
+
+    SPARSKIT version 2.0
+      ilut, luson, and qsplit 
+      (https://www-users.cse.umn.edu/~saad/software/SPARSKIT/)
+
+    RCM - Reverse Cuthill McKee Ordering
+      (https://people.math.sc.edu/Burkardt/f_src/rcm/rcm.html)
+
+    BLAS - Basic Linear Algebra Subprograms Level 1
+      (https://people.math.sc.edu/Burkardt/f_src/blas1_d/blas1_d.html)
+
+    SPARSEKIT - Sparse Matrix Utility Package
+      amux, dperm, dvperm, rperm, and cperm
+      (https://people.sc.fsu.edu/~jburkardt/f77_src/sparsekit/sparsekit.html)
+
+The following BSD-3 License libraries are used in this USGS product:
+
+    Modern Fortran DAG Library
+      Copyright (c) 2018, Jacob Williams
+      All rights reserved.
+      (https://github.com/jacobwilliams/daglib)
+
+MODFLOW 6 compiler options: /Isrc\libmf6core.a.p /Isrc /I..\src
+/Isrc\libmf6_external.a.p /MTd /nologo /warn:general /warn:truncated_source
+/stand:f08 /Zi /traceback /O2 /fpe:0 /heap-arrays:0 /traceback /fpp
+/Qdiag-disable:7416 /Qdiag-disable:7025 /Qdiag-disable:5268
+/Fdsrc\libmf6core.a.p\Utilities_compilerversion.F90.pdb
+/module:src\libmf6core.a.p
+/Fosrc/libmf6core.a.p/Utilities_compilerversion.F90.obj /c
+
+System command used to initiate simulation:
+C:\Users\buckl\Documents\Software\mf6.4.1\bin\mf6.exe
+
+MODFLOW was compiled using uniform precision.
+
+Real Variables
+  KIND: 8
+  TINY (smallest non-zero value):    2.225074-308
+  HUGE (largest value):    1.797693+308
+  PRECISION: 15
+  SIZE IN BITS: 64
+
+Integer Variables
+  KIND: 4
+  HUGE (largest value): 2147483647
+  SIZE IN BITS: 32
+
+Long Integer Variables
+  KIND: 8
+  HUGE (largest value): 9223372036854775807
+  SIZE IN BITS: 64
+
+Logical Variables
+  KIND: 4
+  SIZE IN BITS: 32
+ 
+
+ OPENED gwf_sfr_p01.ghb
+ FILE TYPE:GHB6                   UNIT 1005   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.ic
+ FILE TYPE:IC6                    UNIT 1006   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.sto
+ FILE TYPE:STO6                   UNIT 1007   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.npf
+ FILE TYPE:NPF6                   UNIT 1008   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.dis
+ FILE TYPE:DIS6                   UNIT 1009   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.wel
+ FILE TYPE:WEL6                   UNIT 1010   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.rcha
+ FILE TYPE:RCH6                   UNIT 1011   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.evta
+ FILE TYPE:EVT6                   UNIT 1012   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.sfr
+ FILE TYPE:SFR6                   UNIT 1013   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+
+ OPENED gwf_sfr_p01.oc
+ FILE TYPE:OC6                    UNIT 1014   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+ NAMEFILE OPTIONS:
+    FLOWS WILL BE SAVED TO BUDGET FILE SPECIFIED IN OUTPUT CONTROL
+    NEWTON-RAPHSON method enabled for the model.
+
+ DIS -- STRUCTURED GRID DISCRETIZATION PACKAGE, VERSION 2 : 3/27/2014 - INPUT READ FROM UNIT 1009
+
+ Loading input for GWF_SFR_P01/DIS
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+   NLAY = 1
+   NROW = 15
+   NCOL = 10
+   DELR = 5000.000000000000
+   DELC = 5000.000000000000
+   TOP = variable 2D double precision array ranging from .000000000000000 to 1110.000000000000
+   BOTM = variable 3D double precision array ranging from .000000000000000 to 1000.000000000000
+   IDOMAIN = variable 3D integer array ranging from 0 to 2
+ Loading input complete...
+
+
+ NPF -- NODE PROPERTY FLOW PACKAGE, VERSION 1, 3/30/2015 INPUT READ FROM UNIT 1008
+
+ Loading input for GWF_SFR_P01/NPF
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+   ISAVSPDIS = 1
+   ICELLTYPE = 1
+   K = variable 1D double precision array ranging from .000000000000000 to .2000000000000000E-02
+ Loading input complete...
+
+ Setting Discretization Options
+    Model length unit [0=UND, 1=FEET, 2=METERS, 3=CENTIMETERS] set as 1
+ End Setting Discretization Options
+
+ Setting Discretization Dimensions
+    NLAY = 1
+    NROW = 15
+    NCOL = 10
+ End Setting Discretization Dimensions
+
+ Setting Discretization Griddata
+    DELR set from input file
+    DELC set from input file
+    TOP set from input file
+    BOTM set from input file
+    IDOMAIN set from input file
+ End Setting Discretization Griddata
+
+
+ The specified IDOMAIN results in a reduced number of cells.
+ Number of user nodes: 150
+ Number of nodes in solution: 116
+
+
+ Setting NPF Options
+    Specific discharge will be calculated at cell centers and written to DATA-SPDIS in budget file when requested.
+ End Setting NPF Options
+
+ Setting NPF Griddata
+    ICELLTYPE set from input file
+    K set from input file
+    K33 not provided.  Setting K33 = K.
+    K22 not provided.  Setting K22 = K.
+ End Setting NPF Griddata
+
+
+ WEL   -- WEL PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1010
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING WEL OPTIONS
+ END OF WEL OPTIONS
+
+ PROCESSING WEL DIMENSIONS
+    MAXBOUND =      10
+ END OF WEL DIMENSIONS
+
+ GHB   -- GHB PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1005
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING GHB OPTIONS
+ END OF GHB OPTIONS
+
+ PROCESSING GHB DIMENSIONS
+    MAXBOUND =       2
+ END OF GHB DIMENSIONS
+
+ RCH   -- RCH PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1011
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING RCH OPTIONS
+    RECHARGE INPUT WILL BE READ AS ARRAY(S).
+ END OF RCHA OPTIONS
+
+ EVT   -- EVT PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1012
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING EVT OPTIONS
+    EVAPOTRANSPIRATION INPUT WILL BE READ AS ARRAYS.
+ END OF EVTA OPTIONS
+
+ SFR   -- SFR PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM UNIT 1013
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING SFR OPTIONS
+
+ OPENED gwf_sfr_p01.sfr.obs
+ FILE TYPE:OBS   UNIT 1016   STATUS:OLD                 
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+ ACTION:READ                
+
+    UNIT CONVERSION VALUE (1.486000000000000) SPECIFIED.
+ END OF SFR OPTIONS
+
+ PROCESSING SFR DIMENSIONS
+    NREACHES = 36
+ END OF SFR DIMENSIONS
+
+ PROCESSING SFR PACKAGEDATA
+ END OF SFR PACKAGEDATA
+
+ PROCESSING SFR CONNECTIONDATA
+ END OF SFR CONNECTIONDATA
+
+ PROCESSING SFR DIVERSIONS
+ END OF SFR DIVERSIONS
+
+ IC -- INITIAL CONDITIONS PACKAGE, VERSION 8, 3/28/2015 INPUT READ FROM UNIT 1006
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+ PROCESSING GRIDDATA
+
+     INITIAL HEAD =   1050.000    
+ END PROCESSING GRIDDATA
+
+ STO -- STORAGE PACKAGE, VERSION 1, 5/19/2014 INPUT READ FROM UNIT 1007
+
+
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+ PROCESSING STORAGE OPTIONS
+ END OF STORAGE OPTIONS
+ PROCESSING GRIDDATA
+
+                 ICONVERT = 1
+
+         SPECIFIC STORAGE =  0.1000000E-05
+ END PROCESSING GRIDDATA
+    BINARY GRID INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1017
+      FILE NAME: c:\Users\buckl\Documents\Github\flopy_mf6_work\notebooks\implementing\gwf_sfr_p01\model\gwf_sfr_p01.dis.grb
+
+ OPENED c:\Users\buckl\Documents\Github\flopy_mf6_work\notebooks\implementing\gwf_sfr_p01\model\gwf_sfr_p01.dis.grb
+ FILE TYPE:DATA(BINARY)   UNIT 1017   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+      THE LAST TIME STEP WILL BE PRINTED
+      THE LAST TIME STEP WILL BE PRINTED
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+ PROCESSING OC OPTIONS
+
+    BUDGET INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1018
+      FILE NAME: gwf_sfr_p01.cbc
+
+ OPENED gwf_sfr_p01.cbc
+ FILE TYPE:DATA(BINARY)   UNIT 1018   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+    HEAD INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1019
+      FILE NAME: gwf_sfr_p01.hds
+
+ OPENED gwf_sfr_p01.hds
+ FILE TYPE:DATA(BINARY)   UNIT 1019   STATUS:REPLACE             
+ FORMAT:UNFORMATTED            ACCESS:STREAM              
+ ACTION:READWRITE           
+
+ END OF OC OPTIONS
+
+The observation utility is active for "SFR"
+ # File generated by Flopy version 3.5.0 on 02/03/2024 at 21:28:30.
+
+Processing observation options:
+
+
+
+start timestep kper="1" kstp="1" mode="normal"
+
+
+ BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+      ALL TIME STEPS WILL BE SAVED
+      ALL TIME STEPS WILL BE SAVED
+
+ END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+
+
+ PROCESSING STORAGE PERIOD DATA
+ END PROCESSING STORAGE PERIOD DATA
+
+
+ STRESS PERIOD 1 IS STEADY-STATE
+
+
+ REUSING WELS FROM LAST STRESS PERIOD
+
+  EVAPOTRANSPIRATION RATE =  0.9500000E-07
+
+         EXTINCTION DEPTH =   15.00000    
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      1
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    1, STRESS PERIOD    1
+
+
+  SFR BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE SFR      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 GWF =           0.0000                   GWF =          10.9103
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =           0.0000            EXT-INFLOW =         185.0000
+         EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+            TOTAL IN =           0.0000              TOTAL IN =         195.9103
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 GWF =           0.0000                   GWF =          42.2331
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =           0.0000            EXT-INFLOW =           0.0000
+         EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =         153.6772
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+           TOTAL OUT =           0.0000             TOTAL OUT =         195.9103
+
+            IN - OUT =           0.0000              IN - OUT =       2.8422E-14
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME    
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+              STO-SS =           0.0000                STO-SS =           0.0000     STORAGE                          
+              STO-SY =           0.0000                STO-SY =           0.0000     STORAGE                          
+                 WEL =           0.0000                   WEL =           0.0000     WEL                              
+                 GHB =           0.0000                   GHB =           0.2529     GHB                              
+                RCHA =           0.0000                  RCHA =           1.7938     RCHA                             
+                EVTA =           0.0000                  EVTA =           0.0000     EVTA                             
+                 SFR =           0.0000                   SFR =          42.2331     SFR                              
+
+            TOTAL IN =           0.0000              TOTAL IN =          44.2798
+
+          OUT:                                     OUT:
+          ----                                     ----
+              STO-SS =           0.0000                STO-SS =           0.0000     STORAGE                          
+              STO-SY =           0.0000                STO-SY =           0.0000     STORAGE                          
+                 WEL =           0.0000                   WEL =           0.0000     WEL                              
+                 GHB =           0.0000                   GHB =           0.1995     GHB                              
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA                             
+                EVTA =           0.0000                  EVTA =          33.1700     EVTA                             
+                 SFR =           0.0000                   SFR =          10.9103     SFR                              
+
+           TOTAL OUT =           0.0000             TOTAL OUT =          44.2798
+
+            IN - OUT =           0.0000              IN - OUT =      -1.5678E-07
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =          -0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  0.0000      0.0000      0.0000      0.0000      0.0000    
+ STRESS PERIOD TIME  0.0000      0.0000      0.0000      0.0000      0.0000    
+         TOTAL TIME  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+
+end timestep
+
+
+start timestep kper="2" kstp="1" mode="normal"
+
+
+ END OF FILE DETECTED IN OUTPUT CONTROL.
+ CURRENT OUTPUT CONTROL SETTINGS WILL BE 
+ REPEATED UNTIL THE END OF THE SIMULATION.
+
+ OUTPUT CONTROL FOR STRESS PERIOD 2 IS REPEATED USING SETTINGS FROM A PREVIOUS STRESS PERIOD.
+
+
+ PROCESSING STORAGE PERIOD DATA
+ END PROCESSING STORAGE PERIOD DATA
+
+
+ STRESS PERIOD 2 IS TRANSIENT
+
+
+ REUSING GHBS FROM LAST STRESS PERIOD
+
+ REUSING RCHS FROM LAST STRESS PERIOD
+
+ REUSING EVTS FROM LAST STRESS PERIOD
+
+ REUSING SFRS FROM LAST STRESS PERIOD
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    1, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="2" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    2, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="3" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    3, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="4" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    4, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="5" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    5, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="6" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    6, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="7" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    7, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="8" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    8, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="9" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    9, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="10" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   10, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="11" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   11, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="12" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   12, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="13" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   13, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="14" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   14, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="15" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   15, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="16" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   16, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="17" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   17, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="18" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   18, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="19" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   19, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="20" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   20, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="21" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   21, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="22" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   22, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="23" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   23, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="24" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   24, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="25" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   25, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="26" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   26, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="27" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   27, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="28" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   28, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="29" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   29, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="30" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   30, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="31" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   31, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="32" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   32, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="33" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   33, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="34" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   34, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="35" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   35, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="36" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   36, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="37" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   37, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="38" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   38, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="39" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   39, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="40" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   40, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="41" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   41, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="42" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   42, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="43" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   43, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="44" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   44, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="45" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   45, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="46" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   46, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="47" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   47, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="48" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   48, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="49" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   49, STRESS PERIOD    2
+
+end timestep
+
+
+start timestep kper="2" kstp="50" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      2
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   50, STRESS PERIOD    2
+
+
+  SFR BUDGET FOR ENTIRE MODEL AT END OF TIME STEP   50, STRESS PERIOD   2
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE SFR      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 GWF =   584543922.1536                   GWF =           0.0000
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =291907800000.0000            EXT-INFLOW =         185.0000
+         EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+            TOTAL IN =292492343922.1536              TOTAL IN =         185.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 GWF =147325037544.8344                   GWF =         107.4714
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =           0.0000            EXT-INFLOW =           0.0000
+         EXT-OUTFLOW =145167306377.3192           EXT-OUTFLOW =          77.5286
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+           TOTAL OUT =292492343922.1536             TOTAL OUT =         185.0000
+
+            IN - OUT =      -6.1035E-05              IN - OUT =           0.0000
+
+ PERCENT DISCREPANCY =          -0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP   50, STRESS PERIOD   2
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME    
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+              STO-SS =    52103115.2925                STO-SS =       4.8165E-03     STORAGE                          
+              STO-SY = 29528758883.0095                STO-SY =           3.4442     STORAGE                          
+                 WEL =           0.0000                   WEL =           0.0000     WEL                              
+                 GHB =   404427967.4870                   GHB =           0.2575     GHB                              
+                RCHA =  2830322250.0000                  RCHA =           1.7938     RCHA                             
+                EVTA =           0.0000                  EVTA =           0.0000     EVTA                             
+                 SFR =147325037546.4025                   SFR =         107.4714     SFR                              
+
+            TOTAL IN =180140649762.1915              TOTAL IN =         112.9715
+
+          OUT:                                     OUT:
+          ----                                     ----
+              STO-SS =           0.0000                STO-SS =           0.0000     STORAGE                          
+              STO-SY =           0.0000                STO-SY =           0.0000     STORAGE                          
+                 WEL =157788000000.0000                   WEL =         100.0000     WEL                              
+                 GHB =   283428501.5609                   GHB =           0.1745     GHB                              
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA                             
+                EVTA = 21484677409.8970                  EVTA =          12.7970     EVTA                             
+                 SFR =   584543922.0740                   SFR =           0.0000     SFR                              
+
+           TOTAL OUT =180140649833.5320             TOTAL OUT =         112.9715
+
+            IN - OUT =         -71.3405              IN - OUT =      -4.6765E-08
+
+ PERCENT DISCREPANCY =          -0.00     PERCENT DISCREPANCY =          -0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP   50 IN STRESS PERIOD    2
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH 1.44676E+08 2.41127E+06  40188.      1674.5      4.5845    
+ STRESS PERIOD TIME 1.57788E+09 2.62980E+07 4.38300E+05  18262.      50.000    
+         TOTAL TIME 1.57788E+09 2.62980E+07 4.38300E+05  18262.      50.000    
+
+
+end timestep
+
+
+start timestep kper="3" kstp="1" mode="normal"
+
+
+ OUTPUT CONTROL FOR STRESS PERIOD 3 IS REPEATED USING SETTINGS FROM A PREVIOUS STRESS PERIOD.
+
+
+ STRESS PERIOD 3 IS TRANSIENT
+
+
+ REUSING WELS FROM LAST STRESS PERIOD
+
+ REUSING GHBS FROM LAST STRESS PERIOD
+
+ REUSING RCHS FROM LAST STRESS PERIOD
+
+ REUSING EVTS FROM LAST STRESS PERIOD
+
+ REUSING SFRS FROM LAST STRESS PERIOD
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      1, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    1, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="2" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      2, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    2, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="3" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      3, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    3, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="4" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      4, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    4, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="5" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      5, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    5, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="6" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      6, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    6, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="7" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      7, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    7, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="8" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      8, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    8, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="9" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP      9, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP    9, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="10" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     10, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   10, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="11" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     11, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   11, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="12" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     12, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   12, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="13" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     13, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   13, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="14" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     14, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   14, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="15" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     15, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   15, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="16" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     16, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   16, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="17" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     17, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   17, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="18" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     18, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   18, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="19" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     19, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   19, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="20" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     20, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   20, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="21" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     21, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   21, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="22" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     22, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   22, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="23" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     23, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   23, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="24" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     24, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   24, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="25" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     25, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   25, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="26" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     26, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   26, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="27" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     27, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   27, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="28" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     28, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   28, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="29" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     29, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   29, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="30" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     30, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   30, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="31" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     31, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   31, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="32" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     32, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   32, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="33" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     33, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   33, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="34" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     34, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   34, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="35" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     35, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   35, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="36" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     36, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   36, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="37" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     37, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   37, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="38" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     38, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   38, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="39" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     39, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   39, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="40" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     40, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   40, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="41" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     41, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   41, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="42" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     42, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   42, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="43" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     43, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   43, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="44" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     44, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   44, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="45" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     45, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   45, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="46" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     46, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   46, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="47" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     47, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   47, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="48" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     48, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   48, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="49" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     49, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   49, STRESS PERIOD    3
+
+end timestep
+
+
+start timestep kper="3" kstp="50" mode="normal"
+
+ UBDSV1 SAVING           STO-SS ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV1 SAVING           STO-SY ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING       DATA-SPDIS IN MODEL GWF_SFR_P01      PACKAGE NPF             CONNECTED TO MODEL GWF_SFR_P01      PACKAGE NPF              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING              WEL IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE WEL              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING              GHB IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE GHB              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING             RCHA IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE RCHA             ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING            EVTA  IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE EVTA             ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+ UBDSV06 SAVING              SFR IN MODEL GWF_SFR_P01      PACKAGE GWF_SFR_P01     CONNECTED TO MODEL GWF_SFR_P01      PACKAGE SFR              ON UNIT   1018 AT TIME STEP     50, STRESS PERIOD      3
+
+ HEAD WILL BE SAVED ON UNIT 1019 AT END OF TIME STEP   50, STRESS PERIOD    3
+
+
+  SFR BUDGET FOR ENTIRE MODEL AT END OF TIME STEP   50, STRESS PERIOD   3
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE SFR      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 GWF =   584543922.1536                   GWF =           0.0000
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =583815599999.9999            EXT-INFLOW =         185.0000
+         EXT-OUTFLOW =           0.0000           EXT-OUTFLOW =           0.0000
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+            TOTAL IN =584400143922.1534              TOTAL IN =         185.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 GWF =320395457670.0164                   GWF =         110.5406
+            RAINFALL =           0.0000              RAINFALL =           0.0000
+         EVAPORATION =           0.0000           EVAPORATION =           0.0000
+              RUNOFF =           0.0000                RUNOFF =           0.0000
+          EXT-INFLOW =           0.0000            EXT-INFLOW =           0.0000
+         EXT-OUTFLOW =264004686252.1372           EXT-OUTFLOW =          74.4594
+             STORAGE =           0.0000               STORAGE =           0.0000
+
+           TOTAL OUT =584400143922.1536             TOTAL OUT =         185.0000
+
+            IN - OUT =      -1.2207E-04              IN - OUT =           0.0000
+
+ PERCENT DISCREPANCY =          -0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP   50, STRESS PERIOD   3
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME    
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+              STO-SS =    54576398.3186                STO-SS =       3.3773E-04     STORAGE                          
+              STO-SY = 31325942596.5104                STO-SY =           0.2485     STORAGE                          
+                 WEL =           0.0000                   WEL =           0.0000     WEL                              
+                 GHB =   810945281.8183                   GHB =           0.2577     GHB                              
+                RCHA =  5660644500.0000                  RCHA =           1.7938     RCHA                             
+                EVTA =           0.0000                  EVTA =           0.0000     EVTA                             
+                 SFR =320395457673.2827                   SFR =         110.5406     SFR                              
+
+            TOTAL IN =358247566449.9301              TOTAL IN =         112.8410
+
+          OUT:                                     OUT:
+          ----                                     ----
+              STO-SS =           0.0000                STO-SS =           0.0000     STORAGE                          
+              STO-SY =           0.0000                STO-SY =           0.0000     STORAGE                          
+                 WEL =315576000000.0001                   WEL =         100.0000     WEL                              
+                 GHB =   557543570.9210                   GHB =           0.1734     GHB                              
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA                             
+                EVTA = 41529479095.5894                  EVTA =          12.6675     EVTA                             
+                 SFR =   584543922.0740                   SFR =           0.0000     SFR                              
+
+           TOTAL OUT =358247566588.5845             TOTAL OUT =         112.8410
+
+            IN - OUT =        -138.6544              IN - OUT =      -4.6646E-08
+
+ PERCENT DISCREPANCY =          -0.00     PERCENT DISCREPANCY =          -0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP   50 IN STRESS PERIOD    3
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH 1.44676E+08 2.41127E+06  40188.      1674.5      4.5845    
+ STRESS PERIOD TIME 1.57788E+09 2.62980E+07 4.38300E+05  18262.      50.000    
+         TOTAL TIME 3.15576E+09 5.25960E+07 8.76600E+05  36525.      100.00    
+
+
+end timestep
+
