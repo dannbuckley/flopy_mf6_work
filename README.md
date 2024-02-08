@@ -46,6 +46,13 @@ Going through the examples in the [MODFLOW 6 software download](https://www.usgs
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/fhb/__init__.py">Implementation</a></td>
       <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_fhb/gwf_fhb.ipynb">Testing</a></td>
     </tr>
+    <tr>
+      <td>ex-gwf-sfr-p01</td>
+      <td>Streamflow Routing Package Problem 1</td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/learning/gwf_sfr_p01.ipynb">Learning</a></td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/src/flopy_mf6_work/gwf/sfr_p01/__init__.py">Implementation</a></td>
+      <td><a href="https://github.com/dannbuckley/flopy_mf6_work/blob/main/notebooks/testing/gwf_sfr_p01/gwf_sfr_p01.ipynb">Testing</a></td>
+    </tr>
   </tbody>
 </table>
 
